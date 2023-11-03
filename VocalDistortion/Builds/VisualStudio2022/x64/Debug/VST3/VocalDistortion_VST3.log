@@ -1,0 +1,2 @@
+﻿LINK : error LNK2001: unresolved external symbol _DllMainCRTStartup
+C:\Users\bloqd\Documents\AAU\vocal-distortion\VocalDistortion\Builds\VisualStudio2022\x64\Debug\VST3\\VocalDistortion.dll : fatal error LNK1120: 1 unresolved externals
