@@ -10,7 +10,7 @@
 
 #include <JuceHeader.h>
 #include "Roughness/Roughness.h"
-#include "YIN/PitchDetectorYin.h"
+#include "YIN/Yin.h"
 
 //==============================================================================
 /**
@@ -62,7 +62,7 @@ private:
     //==============================================================================
 
 	std::unique_ptr<Roughness> roughness;
-	std::unique_ptr<PitchDetectorYin> pitchDetectorYin;
+	std::unique_ptr<Yin> yin;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (VocalDistortionAudioProcessor)
 };

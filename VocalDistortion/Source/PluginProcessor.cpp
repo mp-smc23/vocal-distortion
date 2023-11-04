@@ -20,7 +20,8 @@ VocalDistortionAudioProcessor::VocalDistortionAudioProcessor()
                        .withOutput ("Output", juce::AudioChannelSet::stereo(), true)
                      #endif
                        ),
-	roughness(std::make_unique<Roughness>())
+	roughness(std::make_unique<Roughness>()),
+	yin(std::make_unique<Yin>())
 #endif
 {
 }
@@ -95,7 +96,8 @@ void VocalDistortionAudioProcessor::changeProgramName (int index, const juce::St
 void VocalDistortionAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
 {
 	roughness->setSampleRate(sampleRate);
-	pitchDetectorYin = std::make_unique<PitchDetectorYin>(sampleRate, samplesPerBlock);
+	yin->setSampleRate(sampleRate);
+	yin->setBufferSize(samplesPerBlock);
 }
 
 void VocalDistortionAudioProcessor::releaseResources()
@@ -139,7 +141,7 @@ void VocalDistortionAudioProcessor::processBlock (juce::AudioBuffer<float>& buff
     for (auto i = totalNumInputChannels; i < totalNumOutputChannels; ++i)
         buffer.clear (i, 0, buffer.getNumSamples());
 
-	const auto pitch = pitchDetectorYin->getPitchInHz(buffer.getWritePointer(0));
+	const auto pitch = yin->getPitch(buffer);
 	roughness->setFundamentalFrequency(pitch);
 	roughness->process(buffer);
 }

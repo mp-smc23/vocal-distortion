@@ -36,3 +36,5 @@ VocalDistortion/Builds/VisualStudio2022/.vs/
 .DS_Store
 
 VocalDistortion/Builds/VisualStudio2022/x64/
+
+VocalDistortion/Builds/MacOSX/build/

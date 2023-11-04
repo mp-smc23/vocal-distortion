@@ -54,6 +54,13 @@ private:
 
 	float curPhase{0.f}; // current lfo phase
 	float phaseStep{0.f}; // lfo step
+	
+	/* TODO 
+	 add params
+		- number of harmonies
+		- amplitude (H)
+	 split into cpp and h files
+	 */
 
 	float k{2.f};
 };

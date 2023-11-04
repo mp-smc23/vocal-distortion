@@ -9,8 +9,8 @@
         <FILE id="NVXFyx" name="Roughness.h" compile="0" resource="0" file="Source/Roughness/Roughness.h"/>
       </GROUP>
       <GROUP id="{5D490E8C-A260-D36B-0185-9CA1578778CB}" name="YIN">
-        <FILE id="AD1TC9" name="PitchDetectorYin.h" compile="0" resource="0"
-              file="Source/YIN/PitchDetectorYin.h"/>
+        <FILE id="AD1TC9" name="Yin.h" compile="0" resource="0" file="Source/YIN/Yin.h"/>
+        <FILE id="xAppEH" name="Yin.cpp" compile="1" resource="0" file="Source/YIN/Yin.cpp"/>
       </GROUP>
       <FILE id="BPTtHF" name="PluginEditor.cpp" compile="1" resource="0"
             file="Source/PluginEditor.cpp"/>
