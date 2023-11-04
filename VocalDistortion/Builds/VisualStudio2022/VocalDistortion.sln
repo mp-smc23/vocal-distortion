@@ -2,17 +2,20 @@
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio Version 17
 
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "VocalDistortion - Standalone Plugin", "VocalDistortion_StandalonePlugin.vcxproj", "{153CA36F-BFC3-3884-C46F-8E63DA5B879D}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "VocalDistortion - Standalone Plugin", "VocalDistortion_StandalonePlugin.vcxproj", "{12E9186D-078A-4AE2-A869-948B05138AFA}"
 	ProjectSection(ProjectDependencies) = postProject
-		{96F570E5-1DAA-2FC0-C510-ACFC97BE669F} = {96F570E5-1DAA-2FC0-C510-ACFC97BE669F}
+		{E83E07FC-40A8-43D1-CEB5-F83B937761AB} = {E83E07FC-40A8-43D1-CEB5-F83B937761AB}
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "VocalDistortion - VST", "VocalDistortion_VST.vcxproj", "{327078C0-FFBE-0D84-4B25-B91BB6852A95}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "VocalDistortion - VST3", "VocalDistortion_VST3.vcxproj", "{DD223641-8639-228D-0471-8CC0147BA7C6}"
 	ProjectSection(ProjectDependencies) = postProject
-		{96F570E5-1DAA-2FC0-C510-ACFC97BE669F} = {96F570E5-1DAA-2FC0-C510-ACFC97BE669F}
+		{E83E07FC-40A8-43D1-CEB5-F83B937761AB} = {E83E07FC-40A8-43D1-CEB5-F83B937761AB}
+		{B03D49C6-9D94-4C60-7F6B-AEE7743C22EB} = {B03D49C6-9D94-4C60-7F6B-AEE7743C22EB}
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "VocalDistortion - Shared Code", "VocalDistortion_SharedCode.vcxproj", "{96F570E5-1DAA-2FC0-C510-ACFC97BE669F}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "VocalDistortion - Shared Code", "VocalDistortion_SharedCode.vcxproj", "{E83E07FC-40A8-43D1-CEB5-F83B937761AB}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "VocalDistortion - VST3 Manifest Helper", "VocalDistortion_VST3ManifestHelper.vcxproj", "{B03D49C6-9D94-4C60-7F6B-AEE7743C22EB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -20,18 +23,22 @@ Global
 		Release|x64 = Release|x64
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{327078C0-FFBE-0D84-4B25-B91BB6852A95}.Debug|x64.ActiveCfg = Debug|x64
-		{327078C0-FFBE-0D84-4B25-B91BB6852A95}.Debug|x64.Build.0 = Debug|x64
-		{327078C0-FFBE-0D84-4B25-B91BB6852A95}.Release|x64.ActiveCfg = Release|x64
-		{327078C0-FFBE-0D84-4B25-B91BB6852A95}.Release|x64.Build.0 = Release|x64
-		{153CA36F-BFC3-3884-C46F-8E63DA5B879D}.Debug|x64.ActiveCfg = Debug|x64
-		{153CA36F-BFC3-3884-C46F-8E63DA5B879D}.Debug|x64.Build.0 = Debug|x64
-		{153CA36F-BFC3-3884-C46F-8E63DA5B879D}.Release|x64.ActiveCfg = Release|x64
-		{153CA36F-BFC3-3884-C46F-8E63DA5B879D}.Release|x64.Build.0 = Release|x64
-		{96F570E5-1DAA-2FC0-C510-ACFC97BE669F}.Debug|x64.ActiveCfg = Debug|x64
-		{96F570E5-1DAA-2FC0-C510-ACFC97BE669F}.Debug|x64.Build.0 = Debug|x64
-		{96F570E5-1DAA-2FC0-C510-ACFC97BE669F}.Release|x64.ActiveCfg = Release|x64
-		{96F570E5-1DAA-2FC0-C510-ACFC97BE669F}.Release|x64.Build.0 = Release|x64
+		{DD223641-8639-228D-0471-8CC0147BA7C6}.Debug|x64.ActiveCfg = Debug|x64
+		{DD223641-8639-228D-0471-8CC0147BA7C6}.Debug|x64.Build.0 = Debug|x64
+		{DD223641-8639-228D-0471-8CC0147BA7C6}.Release|x64.ActiveCfg = Release|x64
+		{DD223641-8639-228D-0471-8CC0147BA7C6}.Release|x64.Build.0 = Release|x64
+		{12E9186D-078A-4AE2-A869-948B05138AFA}.Debug|x64.ActiveCfg = Debug|x64
+		{12E9186D-078A-4AE2-A869-948B05138AFA}.Debug|x64.Build.0 = Debug|x64
+		{12E9186D-078A-4AE2-A869-948B05138AFA}.Release|x64.ActiveCfg = Release|x64
+		{12E9186D-078A-4AE2-A869-948B05138AFA}.Release|x64.Build.0 = Release|x64
+		{E83E07FC-40A8-43D1-CEB5-F83B937761AB}.Debug|x64.ActiveCfg = Debug|x64
+		{E83E07FC-40A8-43D1-CEB5-F83B937761AB}.Debug|x64.Build.0 = Debug|x64
+		{E83E07FC-40A8-43D1-CEB5-F83B937761AB}.Release|x64.ActiveCfg = Release|x64
+		{E83E07FC-40A8-43D1-CEB5-F83B937761AB}.Release|x64.Build.0 = Release|x64
+		{B03D49C6-9D94-4C60-7F6B-AEE7743C22EB}.Debug|x64.ActiveCfg = Debug|x64
+		{B03D49C6-9D94-4C60-7F6B-AEE7743C22EB}.Debug|x64.Build.0 = Debug|x64
+		{B03D49C6-9D94-4C60-7F6B-AEE7743C22EB}.Release|x64.ActiveCfg = Release|x64
+		{B03D49C6-9D94-4C60-7F6B-AEE7743C22EB}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
