@@ -32,3 +32,5 @@
 *.app
 
 VocalDistortion/Builds/VisualStudio2022/.vs/
+
+.DS_Store

@@ -9,6 +9,8 @@
 #pragma once
 
 #include <JuceHeader.h>
+#include "Roughness/Roughness.h"
+#include "YIN/PitchDetectorYin.h"
 
 //==============================================================================
 /**
@@ -58,5 +60,9 @@ public:
 
 private:
     //==============================================================================
+
+	std::unique_ptr<Roughness> roughness;
+	std::unique_ptr<PitchDetectorYin> pitchDetectorYin;
+
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (VocalDistortionAudioProcessor)
 };
