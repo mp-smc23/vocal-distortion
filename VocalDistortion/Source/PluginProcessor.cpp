@@ -143,8 +143,19 @@ bool VocalDistortionAudioProcessor::isBusesLayoutSupported (const BusesLayout& l
 }
 #endif
 
+void VocalDistortionAudioProcessor::getParametersValues(){
+	dryWet = dryWetParam->get();
+
+	roughness->setSubHarmonics(subHarmonicsParam->get());
+	roughness->setAmp(hAmpParam->get());
+
+	highPass->setFrequency(highPassFrequencyParam->get());
+}
+
 void VocalDistortionAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, juce::MidiBuffer& midiMessages)
 {
+	getParametersValues();
+	
     juce::ScopedNoDenormals noDenormals;
     auto totalNumInputChannels  = getTotalNumInputChannels();
     auto totalNumOutputChannels = getTotalNumOutputChannels();
@@ -167,7 +178,11 @@ void VocalDistortionAudioProcessor::processBlock (juce::AudioBuffer<float>& buff
 	juce::FloatVectorOperations::subtract(buffer.getWritePointer(1), tmpCopyBuffer.getReadPointer(1), numSamples);
 
 	// Filter subharmonics with high pass
-	//highPass->process(buffer);
+//	highPass->process(buffer);
+
+	// Multiply subharmonics by dry wet parameter
+	juce::FloatVectorOperations::multiply(buffer.getWritePointer(0), dryWet, numSamples);
+	juce::FloatVectorOperations::multiply(buffer.getWritePointer(1), dryWet, numSamples);
 
 	// Sum  original signal with high-pass filtered subharmonics
 	juce::FloatVectorOperations::add(buffer.getWritePointer(0), tmpCopyBuffer.getReadPointer(0), numSamples);

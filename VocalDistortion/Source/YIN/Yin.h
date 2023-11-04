@@ -44,10 +44,10 @@ private:
 	float* dt;
 	float threshold{0.1f};
 
-	unsigned int bufferSize;
-	double sampleRate;
-	
-	float currentPitch;
+	unsigned int bufferSize{2048};
+	double sampleRate{44100.f};
+
+	float currentPitch{440.f};
 
 	// Below functions should go in a seperate utilities class
 

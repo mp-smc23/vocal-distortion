@@ -6,13 +6,16 @@ void Roughness::process(juce::AudioBuffer<float>& buffer){
 	auto* leftChannel = buffer.getWritePointer(0);
 	auto* rightChannel = buffer.getNumChannels() > 1 ? buffer.getWritePointer(1) : leftChannel;
 
-	for(auto i = 0; i < buffer.getNumSamples(); i++){
-		curPhase += phaseStep;
-		if(curPhase > 1.f){
-			curPhase -= 1.f;
-		}
+	for(auto i = 0; i < buffer.getNumSamples(); i++){		
+		auto xm = 1;
 
-		auto xm = 1 + hAmp * cos(juce::MathConstants<float>::twoPi * curPhase);
+		for(auto j = 0; j < subHarmonics; j++){
+			curPhase[j] += phaseStep[j];
+			if(curPhase[j] > 1.f){
+				curPhase[j] -= 1.f;
+			}
+			xm += hAmp * cos(juce::MathConstants<float>::twoPi * curPhase[j]);
+		}
 
 		leftChannel[i] *= xm;
 		rightChannel[i] *= xm;
@@ -32,4 +35,15 @@ void Roughness::setSampleRate(const float newSampleRate) {
 
 	sampleRate = newSampleRate;
 	update();
+}
+
+void Roughness::setSubHarmonics(const int newSubHarmonics) {
+	subHarmonics = newSubHarmonics;
+	update();
+}
+
+void Roughness::update(){
+	for(auto i = 0; i < subHarmonics; i++){
+		phaseStep[i] = (f0 / k[i]) / sampleRate;
+	}
 }

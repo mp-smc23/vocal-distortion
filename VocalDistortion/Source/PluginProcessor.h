@@ -60,6 +60,10 @@ public:
     void setStateInformation (const void* data, int sizeInBytes) override;
 
 private:
+	//==============================================================================
+
+	void getParametersValues();
+
     //==============================================================================
 	juce::AudioBuffer<float> tmpCopyBuffer;
 
@@ -71,6 +75,9 @@ private:
 	juce::AudioParameterFloat* dryWetParam;
 	juce::AudioParameterFloat* hAmpParam;
 	juce::AudioParameterFloat* highPassFrequencyParam;
+
+	float dryWet{1.f};
+	float highPassFreq{1000.f};
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (VocalDistortionAudioProcessor)
 };

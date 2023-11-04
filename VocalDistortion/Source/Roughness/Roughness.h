@@ -9,28 +9,22 @@ public:
 	void setAmp(const float newHAmp) { this->hAmp = newHAmp; }
 	void setSampleRate(const float newSampleRate);
 	void setFundamentalFrequency(const float newFrequency);
+	void setSubHarmonics(const int newSubHarmonics);
 
 	void process(juce::AudioBuffer<float>& buffer);
 
 private:
-	void update(){
-		phaseStep = (f0 / k) / sampleRate ;
-	}
+	void update();
 
 	float sampleRate{44100.f};
 
 	float f0{440.f}; // fundamental frequency
 	float hAmp{1.f}; // amplitude of cos
 
-	float curPhase{0.f}; // current lfo phase
-	float phaseStep{0.f}; // lfo step
-	
-	/* TODO 
-	 add params
-		- number of harmonies
-		- amplitude (H)
-	 split into cpp and h files
-	 */
+	int subHarmonics{1};
 
-	float k{2.f};
+	float curPhase[5] = {0.f, 0.f, 0.f, 0.f, 0.f}; // current lfo phase
+	float phaseStep[5] = {0.f, 0.f, 0.f, 0.f, 0.f}; // lfo step
+
+	float k[5] = {2.f, 4.f, 8.f, 16.f, 32.f};
 };
