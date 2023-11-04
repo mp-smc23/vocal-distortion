@@ -4,6 +4,10 @@
               addUsingNamespaceToJuceHeader="0" displaySplashScreen="1" jucerFormatVersion="1">
   <MAINGROUP id="QyZnMi" name="VocalDistortion">
     <GROUP id="{A9D53B93-25ED-E737-5638-251BE6A9701C}" name="Source">
+      <GROUP id="{DD5BECE0-6DB5-157D-93B1-A564EC132587}" name="HighPass">
+        <FILE id="n2EaxI" name="HighPass.cpp" compile="1" resource="0" file="Source/HighPass/HighPass.cpp"/>
+        <FILE id="FXj3sy" name="HighPass.h" compile="0" resource="0" file="Source/HighPass/HighPass.h"/>
+      </GROUP>
       <GROUP id="{A9536B4C-12CF-201C-197D-B71F0593F47D}" name="Roughness">
         <FILE id="VClE9S" name="Roughness.cpp" compile="1" resource="0" file="Source/Roughness/Roughness.cpp"/>
         <FILE id="NVXFyx" name="Roughness.h" compile="0" resource="0" file="Source/Roughness/Roughness.h"/>
@@ -31,6 +35,7 @@
     <MODULE id="juce_audio_utils" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
     <MODULE id="juce_core" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
     <MODULE id="juce_data_structures" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_dsp" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
     <MODULE id="juce_events" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
     <MODULE id="juce_graphics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
     <MODULE id="juce_gui_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
@@ -56,6 +61,7 @@
         <MODULEPATH id="juce_graphics" path="../../../../../../../JUCE/modules"/>
         <MODULEPATH id="juce_gui_basics" path="../../../../../../../JUCE/modules"/>
         <MODULEPATH id="juce_gui_extra" path="../../../../../../../JUCE/modules"/>
+        <MODULEPATH id="juce_dsp" path="../../../../JUCE/modules"/>
       </MODULEPATHS>
     </VS2022>
     <XCODE_MAC targetFolder="Builds/MacOSX">
@@ -76,6 +82,7 @@
         <MODULEPATH id="juce_graphics" path="../../../../../../../JUCE/modules"/>
         <MODULEPATH id="juce_gui_basics" path="../../../../../../../JUCE/modules"/>
         <MODULEPATH id="juce_gui_extra" path="../../../../../../../JUCE/modules"/>
+        <MODULEPATH id="juce_dsp" path="../../../../JUCE/modules"/>
       </MODULEPATHS>
     </XCODE_MAC>
   </EXPORTFORMATS>

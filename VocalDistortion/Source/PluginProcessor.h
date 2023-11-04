@@ -11,6 +11,7 @@
 #include <JuceHeader.h>
 #include "Roughness/Roughness.h"
 #include "YIN/Yin.h"
+#include "HighPass/HighPass.h"
 
 //==============================================================================
 /**
@@ -60,9 +61,16 @@ public:
 
 private:
     //==============================================================================
+	juce::AudioBuffer<float> tmpCopyBuffer;
 
 	std::unique_ptr<Roughness> roughness;
 	std::unique_ptr<Yin> yin;
+	std::unique_ptr<HighPass> highPass;
+
+	juce::AudioParameterInt* subHarmonicsParam;
+	juce::AudioParameterFloat* dryWetParam;
+	juce::AudioParameterFloat* hAmpParam;
+	juce::AudioParameterFloat* highPassFrequencyParam;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (VocalDistortionAudioProcessor)
 };

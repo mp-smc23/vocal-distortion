@@ -21,9 +21,14 @@ VocalDistortionAudioProcessor::VocalDistortionAudioProcessor()
                      #endif
                        ),
 	roughness(std::make_unique<Roughness>()),
-	yin(std::make_unique<Yin>())
+	yin(std::make_unique<Yin>()),
+	highPass(std::make_unique<HighPass>())
 #endif
 {
+	addParameter(subHarmonicsParam = new juce::AudioParameterInt({"voices", 1}, "Subharmonics", 1, 5, 1));
+	addParameter(dryWetParam = new juce::AudioParameterFloat({"DryWet", 1}, "Dry/Wet", 0, 1, 0.5f));
+	addParameter(hAmpParam = new juce::AudioParameterFloat({"Amplitude", 1}, "Mod Amplitude", 0, 1, 0.5f));
+	addParameter(highPassFrequencyParam = new juce::AudioParameterFloat({ "HighPassFreq", 1 }, "High-Pass Frequency", { 16.35f, 7902.13f, 0.f, 0.199f }, 440.f, juce::AudioParameterFloatAttributes().withLabel(juce::String("Hz"))));
 }
 
 VocalDistortionAudioProcessor::~VocalDistortionAudioProcessor()
@@ -96,8 +101,14 @@ void VocalDistortionAudioProcessor::changeProgramName (int index, const juce::St
 void VocalDistortionAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
 {
 	roughness->setSampleRate(sampleRate);
+
 	yin->setSampleRate(sampleRate);
 	yin->setBufferSize(samplesPerBlock);
+
+	highPass->setSampleRate(sampleRate);
+	highPass->setBlockSize(samplesPerBlock);
+
+	tmpCopyBuffer.setSize(2, samplesPerBlock);
 }
 
 void VocalDistortionAudioProcessor::releaseResources()
@@ -141,9 +152,27 @@ void VocalDistortionAudioProcessor::processBlock (juce::AudioBuffer<float>& buff
     for (auto i = totalNumInputChannels; i < totalNumOutputChannels; ++i)
         buffer.clear (i, 0, buffer.getNumSamples());
 
-	const auto pitch = yin->getPitch(buffer);
+	const auto numSamples = buffer.getNumSamples();
+
+	tmpCopyBuffer.copyFrom(0, 0, buffer, 0, 0, numSamples);
+	tmpCopyBuffer.copyFrom(1, 0, buffer, 1, 0, numSamples);
+
+	const auto pitch = yin->getPitch(buffer); // TODO how to treat stereo
+
 	roughness->setFundamentalFrequency(pitch);
 	roughness->process(buffer);
+
+	// Substract original signal from the "mixed" one
+	juce::FloatVectorOperations::subtract(buffer.getWritePointer(0), tmpCopyBuffer.getReadPointer(0), numSamples);
+	juce::FloatVectorOperations::subtract(buffer.getWritePointer(1), tmpCopyBuffer.getReadPointer(1), numSamples);
+
+	// Filter subharmonics with high pass
+	//highPass->process(buffer);
+
+	// Sum  original signal with high-pass filtered subharmonics
+	juce::FloatVectorOperations::add(buffer.getWritePointer(0), tmpCopyBuffer.getReadPointer(0), numSamples);
+	juce::FloatVectorOperations::add(buffer.getWritePointer(1), tmpCopyBuffer.getReadPointer(1), numSamples);
+
 }
 
 //==============================================================================
