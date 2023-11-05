@@ -5,7 +5,7 @@ void HighPass::setFrequency(const float newFrequency) {
 	if(juce::approximatelyEqual(newFrequency, frequency)) return;
 
 	this->frequency = newFrequency;
-	filter.state = juce::dsp::IIR::Coefficients<float>::makeHighPass(processSpec.sampleRate, newFrequency, Q);
+	*filter.state = *juce::dsp::IIR::Coefficients<float>::makeHighPass(processSpec.sampleRate, newFrequency, Q);
 
 	update();
 }

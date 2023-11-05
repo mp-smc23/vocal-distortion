@@ -27,4 +27,8 @@ private:
 	float phaseStep[5] = {0.f, 0.f, 0.f, 0.f, 0.f}; // lfo step
 
 	float k[5] = {2.f, 4.f, 8.f, 16.f, 32.f};
+	float h[5] = {1.f, 0.5f, 0.25f, .125f, .0625f};
+
+	juce::SmoothedValue<float> f0Smoothing;
+	const float rampLengthInSeconds = 0.1f;
 };

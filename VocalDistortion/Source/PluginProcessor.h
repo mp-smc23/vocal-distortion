@@ -76,6 +76,9 @@ private:
 	juce::AudioParameterFloat* hAmpParam;
 	juce::AudioParameterFloat* highPassFrequencyParam;
 
+	juce::SmoothedValue<float> hAmpSmoothing;
+	juce::SmoothedValue<float> highPassFrequencySmoothing;
+
 	float dryWet{1.f};
 	float highPassFreq{1000.f};
 

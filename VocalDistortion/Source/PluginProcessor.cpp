@@ -109,6 +109,9 @@ void VocalDistortionAudioProcessor::prepareToPlay (double sampleRate, int sample
 	highPass->setBlockSize(samplesPerBlock);
 
 	tmpCopyBuffer.setSize(2, samplesPerBlock);
+
+	hAmpSmoothing.reset(10);
+	highPassFrequencySmoothing.reset(10);
 }
 
 void VocalDistortionAudioProcessor::releaseResources()
@@ -147,9 +150,12 @@ void VocalDistortionAudioProcessor::getParametersValues(){
 	dryWet = dryWetParam->get();
 
 	roughness->setSubHarmonics(subHarmonicsParam->get());
-	roughness->setAmp(hAmpParam->get());
 
-	highPass->setFrequency(highPassFrequencyParam->get());
+	hAmpSmoothing.setTargetValue(hAmpParam->get());
+	roughness->setAmp(hAmpSmoothing.getNextValue());
+
+	highPassFrequencySmoothing.setTargetValue(highPassFrequencyParam->get());
+	highPass->setFrequency(highPassFrequencySmoothing.getNextValue());
 }
 
 void VocalDistortionAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, juce::MidiBuffer& midiMessages)
@@ -168,7 +174,7 @@ void VocalDistortionAudioProcessor::processBlock (juce::AudioBuffer<float>& buff
 	tmpCopyBuffer.copyFrom(0, 0, buffer, 0, 0, numSamples);
 	tmpCopyBuffer.copyFrom(1, 0, buffer, 1, 0, numSamples);
 
-	const auto pitch = yin->getPitch(buffer); // TODO how to treat stereo
+	const auto pitch = yin->getPitch(buffer);
 
 	roughness->setFundamentalFrequency(pitch);
 	roughness->process(buffer);
@@ -178,7 +184,7 @@ void VocalDistortionAudioProcessor::processBlock (juce::AudioBuffer<float>& buff
 	juce::FloatVectorOperations::subtract(buffer.getWritePointer(1), tmpCopyBuffer.getReadPointer(1), numSamples);
 
 	// Filter subharmonics with high pass
-//	highPass->process(buffer);
+	highPass->process(buffer);
 
 	// Multiply subharmonics by dry wet parameter
 	juce::FloatVectorOperations::multiply(buffer.getWritePointer(0), dryWet, numSamples);
