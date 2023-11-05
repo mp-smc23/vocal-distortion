@@ -25,45 +25,24 @@ public:
 		bufferSize = newBufferSize;
 	}
 
-	void setSampleRate(double newSampleRate)
+	void setSampleRate(const double newSampleRate)
 	{
-		sampleRate = newSampleRate;
+		sampleRate = static_cast<float>(newSampleRate);
 	}
 
-	void setThreshold(float newThreshold)
+	void setThreshold(const float newThreshold)
 	{
 		threshold = newThreshold;
 	}
 
 private:
-
-	// YIN STEPS to think about
-	//void bestLocalEstimate(const juce::AudioBuffer<float>& buffer);
-
-	juce::AudioSampleBuffer differenceFunc;
 	float* dt;
 	float threshold{0.1f};
-
-	unsigned int bufferSize{2048};
-	double sampleRate{44100.f};
-
 	float currentPitch{440.f};
 
-	// Below functions should go in a seperate utilities class
+	unsigned int bufferSize{2048};
+	float sampleRate{44100.f};
 
-	float parabolicInterpolation (const float *data, unsigned int pos) noexcept
-	{
-		float s0, s1, s2;
-		unsigned int x0, x2;
-		if (pos == 0 || pos == bufferSize - 1) return pos;
-		x0 = (pos < 1) ? pos : pos - 1;
-		x2 = (pos + 1 < bufferSize) ? pos + 1 : pos;
-		if (x0 == pos) return (data[pos] <= data[x2]) ? pos : x2;
-		if (x2 == pos) return (data[pos] <= data[x0]) ? pos : x0;
-		s0 = data[x0];
-		s1 = data[pos];
-		s2 = data[x2];
-		return pos + 0.5 * (s0 - s2 ) / (s0 - 2.* s1 + s2);
-	}
 
+	static float parabolicInterpolation (const float* dt, const int index, const int dtSize);
 };
