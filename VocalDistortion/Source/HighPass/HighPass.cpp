@@ -5,6 +5,7 @@ void HighPass::setFrequency(const float newFrequency) {
 	if(juce::approximatelyEqual(newFrequency, frequency)) return;
 
 	this->frequency = newFrequency;
+	// calculate new coefficients for high pass filter and new frequency value
 	*filter.state = *juce::dsp::IIR::Coefficients<float>::makeHighPass(processSpec.sampleRate, newFrequency, Q);
 
 	update();
@@ -24,6 +25,7 @@ void HighPass::setBlockSize(const int newBlockSize){
 
 void HighPass::process(juce::AudioBuffer<float>& buffer)
 {
+	// filter the signal
 	juce::dsp::AudioBlock<float> block(buffer);
 	filter.process(juce::dsp::ProcessContextReplacing<float>(block));
 }

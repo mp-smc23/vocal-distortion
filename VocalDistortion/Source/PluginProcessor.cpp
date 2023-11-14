@@ -146,6 +146,9 @@ bool VocalDistortionAudioProcessor::isBusesLayoutSupported (const BusesLayout& l
 }
 #endif
 
+/**
+ * \brief Get values of all user parameters, and update objects that depend on them
+ */
 void VocalDistortionAudioProcessor::getParametersValues(){
 	dryWet = dryWetParam->get();
 
@@ -160,7 +163,7 @@ void VocalDistortionAudioProcessor::getParametersValues(){
 
 void VocalDistortionAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, juce::MidiBuffer& midiMessages)
 {
-	getParametersValues();
+	getParametersValues(); // read values of parameters
 	
     juce::ScopedNoDenormals noDenormals;
     auto totalNumInputChannels  = getTotalNumInputChannels();
@@ -169,15 +172,17 @@ void VocalDistortionAudioProcessor::processBlock (juce::AudioBuffer<float>& buff
     for (auto i = totalNumInputChannels; i < totalNumOutputChannels; ++i)
         buffer.clear (i, 0, buffer.getNumSamples());
 
-	const auto numSamples = buffer.getNumSamples();
+    const auto numSamples = buffer.getNumSamples();
 
+    // Copy input buffer to tmp, so we have data for sub-harmonics signal extraction
 	tmpCopyBuffer.copyFrom(0, 0, buffer, 0, 0, numSamples);
 	tmpCopyBuffer.copyFrom(1, 0, buffer, 1, 0, numSamples);
 
+    // get pitch of the input signal 
 	const auto pitch = yin->getPitch(buffer);
 
-	roughness->setFundamentalFrequency(pitch);
-	roughness->process(buffer);
+	roughness->setFundamentalFrequency(pitch); // set pitch for amplitude modulation
+	roughness->process(buffer); // amplitude modulation of input signal
 
 	// Substract original signal from the "mixed" one
 	juce::FloatVectorOperations::subtract(buffer.getWritePointer(0), tmpCopyBuffer.getReadPointer(0), numSamples);
