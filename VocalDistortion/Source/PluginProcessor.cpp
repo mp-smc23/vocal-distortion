@@ -204,7 +204,7 @@ void VocalDistortionAudioProcessor::processBlock (juce::AudioBuffer<float>& buff
 //==============================================================================
 bool VocalDistortionAudioProcessor::hasEditor() const
 {
-    return true; // (change this to false if you choose to not supply an editor)
+    return false; // (change this to false if you choose to not supply an editor)
 }
 
 juce::AudioProcessorEditor* VocalDistortionAudioProcessor::createEditor()

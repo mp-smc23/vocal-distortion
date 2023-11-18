@@ -60,11 +60,9 @@ public:
     void setStateInformation (const void* data, int sizeInBytes) override;
 
 private:
-	//==============================================================================
-
+    //==============================================================================
 	void getParametersValues();
 
-    //==============================================================================
 	juce::AudioBuffer<float> tmpCopyBuffer;
 
 	std::unique_ptr<Roughness> roughness;
